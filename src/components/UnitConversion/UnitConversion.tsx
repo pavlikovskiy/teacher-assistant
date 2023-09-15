@@ -55,6 +55,7 @@ export const UnitConversion = ({unitConversionType, itemStatus, onComplete}: Uni
                     required
                     type="number"
                     label="Numeric Input"
+                    InputLabelProps={{ shrink: true }}
                     value={inputValue}
                     // helperText="Type in numerical value"
                     onChange={(e) => setInputValue(parseFloat(e.target.value))}
@@ -64,6 +65,7 @@ export const UnitConversion = ({unitConversionType, itemStatus, onComplete}: Uni
                 <TextField
                     required
                     label={`Input Unit of ${unitConversionType}`}
+                    InputLabelProps={{ shrink: true }}
                     value={inputUnitOfMeasure}
                     // helperText="Type in Unit of Measure"
                     onChange={(e) => setInputUnitOfMeasure(e.target.value)}
@@ -73,6 +75,7 @@ export const UnitConversion = ({unitConversionType, itemStatus, onComplete}: Uni
                 <TextField
                     required
                     label={`Target Unit of ${unitConversionType}`}
+                    InputLabelProps={{ shrink: true }}
                     value={targetUnitOfMeasure}
                     // helperText="Type in Unit of Measure"
                     onChange={(e) => setTargetUnitOfMeasure(e.target.value)}
@@ -82,8 +85,9 @@ export const UnitConversion = ({unitConversionType, itemStatus, onComplete}: Uni
                 <TextField
                     required
                     label="Student Response"
+                    InputLabelProps={{ shrink: true }}
                     value={studentResponse}
-                    // defaultValue=""
+                    defaultValue=""
                     // helperText="Type in Student Response"
                     onChange={(e) => setStudentResponse(e.target.value)}
                 />
