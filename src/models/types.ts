@@ -1,43 +1,43 @@
-
 export enum UnitConversionEnum {
-    TEMPERATURE = "Temperature",
-    VOLUME = "Volume",
+  TEMPERATURE = "Temperature",
+  VOLUME = "Volume",
 }
 
 export enum TemperatureUnitEnum {
-    KELVIN = "Kelvin",
-    CELSIUS = "Celsius",
-    FAHRENHEIT = "Fahrenheit",
-    RANKINE = "Rankine"
+  KELVIN = "Kelvin",
+  CELSIUS = "Celsius",
+  FAHRENHEIT = "Fahrenheit",
+  RANKINE = "Rankine"
 }
 
 export enum VolumeUnitEnum {
-    LITER = "Liter",
-    TABLESPOON = "Table Spoon",
-    CUBIC_INCH = "Cubic Inch",
+  LITER = "Liter",
+  GALLON = "Gallon",
+  // TABLESPOON = "Table Spoon",
+  // CUBIC_INCH = "Cubic Inch",
 }
 
 export type FormulaType = (n: number) => number
 
 export interface ConversionModel<Type> {
-    measures: Type[]
-    formulas: Map<string, FormulaType>
+  measures: Type[]
+  formulas: Map<string, FormulaType>
 }
 
 export enum ResponseTypeEnum {
-    NO_ANSWER = "",
-    CORRECT = "Correct",
-    INCORRECT = "Incorrect",
-    INVALID = "Invalid"
+  NO_ANSWER = "",
+  CORRECT = "Correct",
+  INCORRECT = "Incorrect",
+  INVALID = "Invalid"
 }
 
 export interface UnitConversionItemType {
-    // type: UnitConversionEnum;
-    inputValue: number;
-    inputUnitOfMeasure: string;
-    targetUnitOfMeasure: string;
-    studentResponse: string;
-    // output?: ResponseType
+  // type: UnitConversionEnum;
+  inputValue: number;
+  inputUnitOfMeasure: string;
+  targetUnitOfMeasure: string;
+  studentResponse: string;
+  // output?: ResponseType
 }
 
 // export interface ConversionFuncType = (value: number, from: string, to: string, conversionModel: ConversionModel<Type>) => number
