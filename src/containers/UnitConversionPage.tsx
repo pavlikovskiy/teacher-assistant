@@ -19,6 +19,7 @@ import {
     UnitConversionItemType
 } from "@/models/types";
 import {TemperatureConversionModel, UnitConversionModels} from "@/models/conversion";
+import { grey } from '@mui/material/colors';
 
 export const StyledAppContainer = styled(Grid)`
   padding-right: 15px;
@@ -34,6 +35,20 @@ export const StyledButton = styled(Button)`
 `
 export const StyledResponse = styled.div`
   //padding-right: 15px;
+`
+
+export const MeasureSection = styled(Grid)`
+  padding: 15px 0 15px 0;
+`
+
+export const MeasureLabel = styled.span`
+  //padding: 10px 10px 10px 0;
+  color: ${grey[700]};
+`
+export const StyledMeasure = styled.span`
+  padding: 10px 0 10px 10px;
+  text-decoration: underline;
+  color: ${grey[500]};
 `
 
 const unitOpts = [
@@ -104,6 +119,11 @@ function UnitConversionPage() {
                     </FormControl>
                 </Box>
             </Grid>
+
+            <MeasureSection item xs={12}>
+              <MeasureLabel>Available units of measure:</MeasureLabel> { conversionModel.measures.map(measure => <StyledMeasure>{measure}</StyledMeasure>)}
+
+            </MeasureSection>
 
             <Grid item xs={12} >
                 {unitConversion && conversionModel &&
