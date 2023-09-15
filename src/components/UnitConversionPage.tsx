@@ -10,7 +10,7 @@ import {
     SelectChangeEvent,
 } from "@mui/material";
 import styled from "@emotion/styled";
-import {UnitConversion} from "../components/UnitConversion";
+import {UnitConversion} from "@/components/UnitConversion/UnitConversion";
 import {useState} from "react";
 import {
     ConversionModel,
