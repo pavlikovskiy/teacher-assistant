@@ -17,17 +17,14 @@ export const StyledContainer = styled(Grid)`
 type UnitConversionProps = {
     unitConversionType: UnitConversionEnum
     itemStatus: ResponseTypeEnum
-    // conversionModel: ConversionModel<any>
-    // unitConversionItem?: UnitConversionItemType
     onComplete: (unitConversionItem: UnitConversionItemType) => void
 }
 
 export const UnitConversion = ({unitConversionType, itemStatus, onComplete}: UnitConversionProps) => {
-    const [inputValue, setInputValue] = useState<number | null>()
+    const [inputValue, setInputValue] = useState<number>()
     const [inputUnitOfMeasure, setInputUnitOfMeasure] = useState<string>('')
     const [targetUnitOfMeasure, setTargetUnitOfMeasure] = useState<string>('')
     const [studentResponse, setStudentResponse] = useState<string>('')
-    // const [output, setOutput] = useState<ResponseType>(ResponseTypeEnum.NO_ANSWER)
     useEffect(() => {
         setInputValue(0)
         setInputUnitOfMeasure('')
@@ -37,10 +34,9 @@ export const UnitConversion = ({unitConversionType, itemStatus, onComplete}: Uni
     }, [itemStatus])
 
     const validateOnClickHandler = () => {
-        if (inputValue && inputUnitOfMeasure && targetUnitOfMeasure && studentResponse) {
+        if (!Number.isNaN(inputValue) && inputUnitOfMeasure && targetUnitOfMeasure && studentResponse) {
             onComplete({
-                // type: unitConversionType,
-                inputValue,
+                inputValue: Number.isNaN(inputValue) ? 0 : inputValue as unknown as number,
                 inputUnitOfMeasure,
                 targetUnitOfMeasure,
                 studentResponse

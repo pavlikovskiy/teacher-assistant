@@ -18,7 +18,7 @@ import {
     UnitConversionEnum,
     UnitConversionItemType
 } from "@/models/types";
-import {TemperatureConversionModel, UnitConversionModels} from "@/models/conversion";
+import {conversionFunc, TemperatureConversionModel, UnitConversionModels} from "@/models/conversion";
 import { grey } from '@mui/material/colors';
 
 export const StyledAppContainer = styled(Grid)`
@@ -60,26 +60,22 @@ function UnitConversionPage() {
 
     const [unitConversion, setUnitConversion] = useState<UnitConversionEnum>(UnitConversionEnum.TEMPERATURE);
     const [conversionModel, setConversionModel] = useState<ConversionModel<any>>(TemperatureConversionModel);
-    // const [unitConversionItem, setUnitConversionItem] = useState<UnitConversionItemType>();
     const [itemStatus, setItemStatus] = useState<ResponseTypeEnum>(ResponseTypeEnum.NO_ANSWER);
     const [itemStatusFinal, setItemStatusFinal] = useState<ResponseTypeEnum>(ResponseTypeEnum.NO_ANSWER);
 
     const handleUnitConversionChange = (event: SelectChangeEvent) => {
         setUnitConversion(event.target.value as UnitConversionEnum);
         const uc: UnitConversionEnum = event.target.value as UnitConversionEnum
-        const cm: ConversionModel<any> = UnitConversionModels.get(uc) || TemperatureConversionModel
-        setConversionModel(cm)
-        // setUnitConversionItem(undefined)
+        setConversionModel(UnitConversionModels.get(uc) || TemperatureConversionModel)
     };
 
     const onComplete = (unitConversionItem: UnitConversionItemType) => {
-        // console.log(` --- ${JSON.stringify(unitConversionItem)}`)
         const {inputValue, inputUnitOfMeasure, targetUnitOfMeasure, studentResponse} = unitConversionItem
 
         let unitConversionStatus;
         try {
-            const correctAnswer = conversionModel.conversionFunc(inputValue, inputUnitOfMeasure, targetUnitOfMeasure)
-            // console.log(`correctAnswer ${JSON.stringify(correctAnswer)}`)
+            const correctAnswer = conversionFunc(inputValue, inputUnitOfMeasure, targetUnitOfMeasure, conversionModel)
+            console.log(`correctAnswer ${JSON.stringify(correctAnswer)}`)
             unitConversionStatus = `${correctAnswer}` === studentResponse ? ResponseTypeEnum.CORRECT : ResponseTypeEnum.INCORRECT
         } catch (e) {
             unitConversionStatus = ResponseTypeEnum.INVALID
@@ -121,7 +117,7 @@ function UnitConversionPage() {
             </Grid>
 
             <MeasureSection item xs={12}>
-              <MeasureLabel>Available units of measure:</MeasureLabel> { conversionModel.measures.map(measure => <StyledMeasure>{measure}</StyledMeasure>)}
+              <MeasureLabel>Supported units of measure:</MeasureLabel> { conversionModel.measures.map(measure => <StyledMeasure key={measure} >{measure}</StyledMeasure>)}
 
             </MeasureSection>
 

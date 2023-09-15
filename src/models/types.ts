@@ -17,10 +17,11 @@ export enum VolumeUnitEnum {
     CUBIC_INCH = "Cubic Inch",
 }
 
+export type FormulaType = (n: number) => number
+
 export interface ConversionModel<Type> {
     measures: Type[]
-    // isUnitValid: (unit: Type) => boolean
-    conversionFunc: (value: number, from: Type, to: Type) => number
+    formulas: Map<string, FormulaType>
 }
 
 export enum ResponseTypeEnum {
@@ -30,9 +31,6 @@ export enum ResponseTypeEnum {
     INVALID = "Invalid"
 }
 
-// export type ResponseType = ResponseTypeEnum; //'correct' | 'incorrect' | 'invalid';
-
-
 export interface UnitConversionItemType {
     // type: UnitConversionEnum;
     inputValue: number;
@@ -41,3 +39,5 @@ export interface UnitConversionItemType {
     studentResponse: string;
     // output?: ResponseType
 }
+
+// export interface ConversionFuncType = (value: number, from: string, to: string, conversionModel: ConversionModel<Type>) => number
