@@ -3,18 +3,19 @@ import { Box, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent
 import { UnitConversion } from '@/components/UnitConversion/UnitConversion'
 import { useState } from 'react'
 import { ConversionModel, ResponseTypeEnum, UnitConversionEnum, UnitConversionItemType } from '@/models/types'
-import { conversionFunc, TemperatureConversionModel, UnitConversionModels } from '@/models/conversion'
+import { conversionFunc, round, TemperatureConversionModel, UnitConversionModels } from '@/models/conversion'
 import {
   MeasureLabel,
   MeasureSection,
-  StyledAppContainer, StyledButton,
+  StyledAppContainer,
+  StyledButton,
   StyledHeader,
-  StyledMeasure, StyledResponse, StyledResponseContainer
-} from "@/containers/UnitConversionPage.styled";
+  StyledMeasure,
+  StyledResponse,
+  StyledResponseContainer,
+} from '@/containers/UnitConversionPage.styled'
 
 const unitOpts = [UnitConversionEnum.VOLUME, UnitConversionEnum.TEMPERATURE]
-
-const round = (num: number) => Math.round((num + Number.EPSILON) * 10) / 10
 
 const UnitConversionPage = () => {
   const [unitConversion, setUnitConversion] = useState<UnitConversionEnum>(UnitConversionEnum.TEMPERATURE)
@@ -34,11 +35,9 @@ const UnitConversionPage = () => {
 
     let unitConversionStatus
     try {
-      let studentResponseNum = Number.parseFloat(studentResponse)
-
+      const studentResponseNum = Number.parseFloat(studentResponse)
       const correctAnswer = conversionFunc(inputValue, inputUnitOfMeasure, targetUnitOfMeasure, conversionModel)
-      console.log(`correctAnswer ${JSON.stringify(correctAnswer)}`)
-      unitConversionStatus = round(correctAnswer) === round(studentResponseNum) ? ResponseTypeEnum.CORRECT : ResponseTypeEnum.INCORRECT
+      unitConversionStatus = round(correctAnswer, 1) === round(studentResponseNum, 1) ? ResponseTypeEnum.CORRECT : ResponseTypeEnum.INCORRECT
     } catch (e) {
       unitConversionStatus = ResponseTypeEnum.INVALID
     }

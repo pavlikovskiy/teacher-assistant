@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import {Button, Grid, TextField} from '@mui/material'
+import { Button, Grid, TextField } from '@mui/material'
 
-import {ConversionModel, ResponseTypeEnum, UnitConversionItemType} from '@/models/types'
-import {StyledAutocomplete, StyledContainer} from './UnitConversion.styled'
+import { ConversionModel, ResponseTypeEnum, UnitConversionItemType } from '@/models/types'
+import { StyledAutocomplete, StyledContainer } from './UnitConversion.styled'
 
 type UnitConversionProps = {
   conversionModel: ConversionModel<any>
@@ -47,40 +47,42 @@ export const UnitConversion = ({ conversionModel, itemStatus, onComplete }: Unit
     <StyledContainer container spacing={1}>
       <Grid item xs={12} md={6}>
         <StyledAutocomplete
-          id="input-measure"
+          id='input-measure'
           freeSolo
           options={options.map((option) => option)}
           value={inputUnitOfMeasure}
           onChange={(_, newValue) => {
             setInputUnitOfMeasure(newValue as string)
           }}
-          renderInput={(params) =>
-              <TextField {...params}
-                         required
-                         label={`Input Unit of ${unitConversionType}`}
-                         InputLabelProps={{ shrink: true }}
-                         onChange={(e) => setInputUnitOfMeasure(e.target.value)}
-              />
-            }
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              required
+              label={`Input Unit of ${unitConversionType}`}
+              InputLabelProps={{ shrink: true }}
+              onChange={(e) => setInputUnitOfMeasure(e.target.value)}
+            />
+          )}
         />
       </Grid>
       <Grid item xs={12} md={6}>
         <StyledAutocomplete
-          id="target-measure"
+          id='target-measure'
           freeSolo
           options={options.map((option) => option)}
           value={targetUnitOfMeasure}
           onChange={(_, newValue) => {
             setTargetUnitOfMeasure(newValue as string)
           }}
-          renderInput={(params) =>
-            <TextField {...params}
-                       required
-                       label={`Target Unit of ${unitConversionType}`}
-                       InputLabelProps={{ shrink: true }}
-                       onChange={(e) => setTargetUnitOfMeasure(e.target.value)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              required
+              label={`Target Unit of ${unitConversionType}`}
+              InputLabelProps={{ shrink: true }}
+              onChange={(e) => setTargetUnitOfMeasure(e.target.value)}
             />
-          }
+          )}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -90,7 +92,7 @@ export const UnitConversion = ({ conversionModel, itemStatus, onComplete }: Unit
           InputLabelProps={{ shrink: true }}
           value={inputValue}
           onChange={(e) => {
-            if(e.target.value.match(/^-?\d*\.?\d*$/)) {
+            if (e.target.value.match(/^-?\d*\.?\d*$/)) {
               setInputValue(e.target.value)
             }
           }}
@@ -106,11 +108,7 @@ export const UnitConversion = ({ conversionModel, itemStatus, onComplete }: Unit
         />
       </Grid>
       <Grid item xs={12}>
-        <Button
-          variant='outlined'
-          disabled={validationDisabled}
-          onClick={validateOnClickHandler}
-        >
+        <Button variant='outlined' disabled={validationDisabled} onClick={validateOnClickHandler}>
           Validate
         </Button>
       </Grid>

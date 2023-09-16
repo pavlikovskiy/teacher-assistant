@@ -21,7 +21,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry'
 
 export const metadata = {
-  title: 'Teacher\'s Assistant',
+  title: "Teacher's Assistant",
   description: 'Next.js App Router + Material UI v5',
 }
 

@@ -24,7 +24,7 @@ type StyledResponseProps = {
   status: string
 }
 export const StyledResponse = styled.span<StyledResponseProps>`
-  color: ${(props) => props.status === 'Incorrect' ? 'red' : props.status === 'Correct' ? 'green' : 'gray'};
+  color: ${(props) => (props.status === 'Incorrect' ? 'red' : props.status === 'Correct' ? 'green' : 'gray')};
   font-weight: bold;
 `
 

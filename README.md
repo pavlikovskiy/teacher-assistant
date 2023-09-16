@@ -6,7 +6,7 @@ The app supports all screen sizes (responsive) and keyboard accessible.
 
 **Teacher's Assistant** is ready to use [here (https://teacher-assistant.vercel.app/)](https://teacher-assistant.vercel.app/).
 
-Technical stack: TypeScript, NextJS, React, Material UI. CI/CD is used to deploy main branch to Vercel's environment.
+Technical stack: TypeScript, Next.js, React, Material UI. CI/CD is used to deploy main branch to Vercel's cloud.
 
 ## How to use
 
