@@ -10,7 +10,8 @@
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
     "test": "jest",
     "e2e": "start-server-and-test dev http://localhost:3000 \"cypress open --e2e\"",
-    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\""
+    "e2e:headless": "start-server-and-test dev http://localhost:3000 \"cypress run --e2e\"",
+    "pretty": "prettier --ignore-path .prettierignore --config ./prettier.config.js --write ./src"
   },
   "dependencies": {
     "@emotion/cache": "latest",
@@ -37,6 +38,7 @@
     "eslint-config-next": "latest",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "prettier": "3.0.3",
     "start-server-and-test": "^2.0.0",
     "typescript": "latest"
   }

@@ -1,18 +1,18 @@
 export enum UnitConversionEnum {
-  TEMPERATURE = "Temperature",
-  VOLUME = "Volume",
+  TEMPERATURE = 'Temperature',
+  VOLUME = 'Volume',
 }
 
 export enum TemperatureUnitEnum {
-  KELVIN = "Kelvin",
-  CELSIUS = "Celsius",
-  FAHRENHEIT = "Fahrenheit",
-  RANKINE = "Rankine"
+  KELVIN = 'Kelvin',
+  CELSIUS = 'Celsius',
+  FAHRENHEIT = 'Fahrenheit',
+  RANKINE = 'Rankine',
 }
 
 export enum VolumeUnitEnum {
-  LITER = "Liter",
-  GALLON = "Gallon",
+  LITER = 'Liter',
+  GALLON = 'Gallon',
   // TABLESPOON = "Table Spoon",
   // CUBIC_INCH = "Cubic Inch",
 }
@@ -25,18 +25,18 @@ export interface ConversionModel<Type> {
 }
 
 export enum ResponseTypeEnum {
-  NO_ANSWER = "",
-  CORRECT = "Correct",
-  INCORRECT = "Incorrect",
-  INVALID = "Invalid"
+  NO_ANSWER = '',
+  CORRECT = 'Correct',
+  INCORRECT = 'Incorrect',
+  INVALID = 'Invalid',
 }
 
 export interface UnitConversionItemType {
   // type: UnitConversionEnum;
-  inputValue: number;
-  inputUnitOfMeasure: string;
-  targetUnitOfMeasure: string;
-  studentResponse: string;
+  inputValue: number
+  inputUnitOfMeasure: string
+  targetUnitOfMeasure: string
+  studentResponse: string
   // output?: ResponseType
 }
 
