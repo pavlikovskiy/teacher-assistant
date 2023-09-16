@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 describe('temperature model test', () => {
   test('Kelvin from Celsius', () => {
