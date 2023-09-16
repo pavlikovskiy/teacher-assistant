@@ -3,11 +3,7 @@ import { useEffect, useState } from 'react'
 import styled from '@emotion/styled'
 import { Button, Grid, TextField } from '@mui/material'
 
-import {
-  ResponseTypeEnum,
-  UnitConversionEnum,
-  UnitConversionItemType,
-} from '@/models/types'
+import { ResponseTypeEnum, UnitConversionEnum, UnitConversionItemType } from '@/models/types'
 
 export const StyledContainer = styled(Grid)`
   padding-right: 15px;
@@ -20,11 +16,7 @@ type UnitConversionProps = {
   onComplete: (unitConversionItem: UnitConversionItemType) => void
 }
 
-export const UnitConversion = ({
-  unitConversionType,
-  itemStatus,
-  onComplete,
-}: UnitConversionProps) => {
+export const UnitConversion = ({ unitConversionType, itemStatus, onComplete }: UnitConversionProps) => {
   const [inputValue, setInputValue] = useState<number>()
   const [inputUnitOfMeasure, setInputUnitOfMeasure] = useState<string>('')
   const [targetUnitOfMeasure, setTargetUnitOfMeasure] = useState<string>('')
@@ -37,12 +29,7 @@ export const UnitConversion = ({
   }, [itemStatus])
 
   const validateOnClickHandler = () => {
-    if (
-      !Number.isNaN(inputValue) &&
-      inputUnitOfMeasure &&
-      targetUnitOfMeasure &&
-      studentResponse
-    ) {
+    if (!Number.isNaN(inputValue) && inputUnitOfMeasure && targetUnitOfMeasure && studentResponse) {
       onComplete({
         inputValue: Number.isNaN(inputValue) ? 0 : (inputValue as unknown as number),
         inputUnitOfMeasure,

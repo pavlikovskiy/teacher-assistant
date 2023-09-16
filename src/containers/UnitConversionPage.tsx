@@ -1,28 +1,10 @@
 'use client'
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from '@mui/material'
+import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import styled from '@emotion/styled'
 import { UnitConversion } from '@/components/UnitConversion/UnitConversion'
 import { useState } from 'react'
-import {
-  ConversionModel,
-  ResponseTypeEnum,
-  UnitConversionEnum,
-  UnitConversionItemType,
-} from '@/models/types'
-import {
-  conversionFunc,
-  TemperatureConversionModel,
-  UnitConversionModels,
-} from '@/models/conversion'
+import { ConversionModel, ResponseTypeEnum, UnitConversionEnum, UnitConversionItemType } from '@/models/types'
+import { conversionFunc, TemperatureConversionModel, UnitConversionModels } from '@/models/conversion'
 import { grey } from '@mui/material/colors'
 
 export const StyledAppContainer = styled(Grid)`
@@ -58,18 +40,10 @@ export const StyledMeasure = styled.span`
 const unitOpts = [UnitConversionEnum.VOLUME, UnitConversionEnum.TEMPERATURE]
 
 function UnitConversionPage() {
-  const [unitConversion, setUnitConversion] = useState<UnitConversionEnum>(
-    UnitConversionEnum.TEMPERATURE
-  )
-  const [conversionModel, setConversionModel] = useState<ConversionModel<any>>(
-    TemperatureConversionModel
-  )
-  const [itemStatus, setItemStatus] = useState<ResponseTypeEnum>(
-    ResponseTypeEnum.NO_ANSWER
-  )
-  const [itemStatusFinal, setItemStatusFinal] = useState<ResponseTypeEnum>(
-    ResponseTypeEnum.NO_ANSWER
-  )
+  const [unitConversion, setUnitConversion] = useState<UnitConversionEnum>(UnitConversionEnum.TEMPERATURE)
+  const [conversionModel, setConversionModel] = useState<ConversionModel<any>>(TemperatureConversionModel)
+  const [itemStatus, setItemStatus] = useState<ResponseTypeEnum>(ResponseTypeEnum.NO_ANSWER)
+  const [itemStatusFinal, setItemStatusFinal] = useState<ResponseTypeEnum>(ResponseTypeEnum.NO_ANSWER)
 
   const handleUnitConversionChange = (event: SelectChangeEvent) => {
     setUnitConversion(event.target.value as UnitConversionEnum)
@@ -78,22 +52,13 @@ function UnitConversionPage() {
   }
 
   const onComplete = (unitConversionItem: UnitConversionItemType) => {
-    const { inputValue, inputUnitOfMeasure, targetUnitOfMeasure, studentResponse } =
-      unitConversionItem
+    const { inputValue, inputUnitOfMeasure, targetUnitOfMeasure, studentResponse } = unitConversionItem
 
     let unitConversionStatus
     try {
-      const correctAnswer = conversionFunc(
-        inputValue,
-        inputUnitOfMeasure,
-        targetUnitOfMeasure,
-        conversionModel
-      )
+      const correctAnswer = conversionFunc(inputValue, inputUnitOfMeasure, targetUnitOfMeasure, conversionModel)
       console.log(`correctAnswer ${JSON.stringify(correctAnswer)}`)
-      unitConversionStatus =
-        `${correctAnswer}` === studentResponse
-          ? ResponseTypeEnum.CORRECT
-          : ResponseTypeEnum.INCORRECT
+      unitConversionStatus = `${correctAnswer}` === studentResponse ? ResponseTypeEnum.CORRECT : ResponseTypeEnum.INCORRECT
     } catch (e) {
       unitConversionStatus = ResponseTypeEnum.INVALID
     }
@@ -140,11 +105,7 @@ function UnitConversionPage() {
 
       <Grid item xs={12}>
         {unitConversion && conversionModel && (
-          <UnitConversion
-            unitConversionType={unitConversion}
-            itemStatus={itemStatusFinal}
-            onComplete={onComplete}
-          />
+          <UnitConversion unitConversionType={unitConversion} itemStatus={itemStatusFinal} onComplete={onComplete} />
         )}
       </Grid>
       {itemStatus !== ResponseTypeEnum.NO_ANSWER && (
