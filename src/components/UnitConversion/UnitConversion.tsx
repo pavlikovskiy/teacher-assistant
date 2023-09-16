@@ -1,14 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
-import styled from '@emotion/styled'
 import { Button, Grid, TextField } from '@mui/material'
 
 import { ResponseTypeEnum, UnitConversionEnum, UnitConversionItemType } from '@/models/types'
-
-export const StyledContainer = styled(Grid)`
-  padding-right: 15px;
-  padding-left: 15px;
-`
+import { StyledContainer } from './UnitConversion.styled'
 
 type UnitConversionProps = {
   unitConversionType: UnitConversionEnum

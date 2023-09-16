@@ -37,7 +37,4 @@ export interface UnitConversionItemType {
   inputUnitOfMeasure: string
   targetUnitOfMeasure: string
   studentResponse: string
-  // output?: ResponseType
 }
-
-// export interface ConversionFuncType = (value: number, from: string, to: string, conversionModel: ConversionModel<Type>) => number

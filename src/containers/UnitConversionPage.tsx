@@ -1,41 +1,16 @@
 'use client'
-import { Box, Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
-import styled from '@emotion/styled'
+import { Box, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { UnitConversion } from '@/components/UnitConversion/UnitConversion'
 import { useState } from 'react'
 import { ConversionModel, ResponseTypeEnum, UnitConversionEnum, UnitConversionItemType } from '@/models/types'
 import { conversionFunc, TemperatureConversionModel, UnitConversionModels } from '@/models/conversion'
-import { grey } from '@mui/material/colors'
-
-export const StyledAppContainer = styled(Grid)`
-  padding-right: 15px;
-  padding-left: 15px;
-`
-
-export const StyledHeader = styled(Grid)`
-  padding: 15px;
-`
-
-export const StyledButton = styled(Button)`
-  //padding-left: 15px;
-`
-export const StyledResponse = styled.div`
-  //padding-right: 15px;
-`
-
-export const MeasureSection = styled(Grid)`
-  padding: 15px 0 15px 0;
-`
-
-export const MeasureLabel = styled.span`
-  //padding: 10px 10px 10px 0;
-  color: ${grey[700]};
-`
-export const StyledMeasure = styled.span`
-  padding: 10px 0 10px 10px;
-  text-decoration: underline;
-  color: ${grey[500]};
-`
+import {
+  MeasureLabel,
+  MeasureSection,
+  StyledAppContainer, StyledButton,
+  StyledHeader,
+  StyledMeasure, StyledResponse
+} from "@/containers/UnitConversionPage.styled";
 
 const unitOpts = [UnitConversionEnum.VOLUME, UnitConversionEnum.TEMPERATURE]
 
@@ -62,7 +37,6 @@ function UnitConversionPage() {
     } catch (e) {
       unitConversionStatus = ResponseTypeEnum.INVALID
     }
-    // setUnitConversionItem(unitConversionItem)
     setItemStatus(unitConversionStatus)
   }
 
