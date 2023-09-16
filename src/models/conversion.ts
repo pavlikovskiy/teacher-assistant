@@ -11,13 +11,15 @@ export const conversionFunc = (value: number, from: string, to: string, conversi
 
   if (from === to) return value
 
-  const formula = conversionModel.formulas.get(`${from}-from-${to}`)
+  const formula = conversionModel.formulas.get(`${to}-from-${from}`)
   if (!formula) throw new Error('formula is not defined in Model')
 
   return formula(value)
 }
 
 export const TemperatureConversionModel: ConversionModel<TemperatureUnitEnum> = {
+  type: UnitConversionEnum.TEMPERATURE,
+
   measures: Object.values(TemperatureUnitEnum),
 
   formulas: new Map<string, FormulaType>([
@@ -40,6 +42,8 @@ export const TemperatureConversionModel: ConversionModel<TemperatureUnitEnum> = 
 }
 
 export const VolumeConversionModel: ConversionModel<VolumeUnitEnum> = {
+  type: UnitConversionEnum.VOLUME,
+
   measures: Object.values(VolumeUnitEnum),
 
   formulas: new Map<string, (n: number) => number>([

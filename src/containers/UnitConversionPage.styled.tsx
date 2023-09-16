@@ -15,8 +15,17 @@ export const StyledHeader = styled(Grid)`
 export const StyledButton = styled(Button)`
   //padding-left: 15px;
 `
-export const StyledResponse = styled.div`
-  //padding-right: 15px;
+export const StyledResponseContainer = styled(Grid)`
+  margin: 20px 0 0 10px;
+  color: ${grey[700]};
+`
+
+type StyledResponseProps = {
+  status: string
+}
+export const StyledResponse = styled.span<StyledResponseProps>`
+  color: ${(props) => props.status === 'Incorrect' ? 'red' : props.status === 'Correct' ? 'green' : 'gray'};
+  font-weight: bold;
 `
 
 export const MeasureSection = styled(Grid)`

@@ -20,6 +20,7 @@ export enum VolumeUnitEnum {
 export type FormulaType = (n: number) => number
 
 export interface ConversionModel<Type> {
+  type: UnitConversionEnum
   measures: Type[]
   formulas: Map<string, FormulaType>
 }

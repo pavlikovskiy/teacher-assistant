@@ -9,12 +9,14 @@ import {
   MeasureSection,
   StyledAppContainer, StyledButton,
   StyledHeader,
-  StyledMeasure, StyledResponse
+  StyledMeasure, StyledResponse, StyledResponseContainer
 } from "@/containers/UnitConversionPage.styled";
 
 const unitOpts = [UnitConversionEnum.VOLUME, UnitConversionEnum.TEMPERATURE]
 
-function UnitConversionPage() {
+const round = (num: number) => Math.round((num + Number.EPSILON) * 10) / 10
+
+const UnitConversionPage = () => {
   const [unitConversion, setUnitConversion] = useState<UnitConversionEnum>(UnitConversionEnum.TEMPERATURE)
   const [conversionModel, setConversionModel] = useState<ConversionModel<any>>(TemperatureConversionModel)
   const [itemStatus, setItemStatus] = useState<ResponseTypeEnum>(ResponseTypeEnum.NO_ANSWER)
@@ -24,6 +26,7 @@ function UnitConversionPage() {
     setUnitConversion(event.target.value as UnitConversionEnum)
     const uc: UnitConversionEnum = event.target.value as UnitConversionEnum
     setConversionModel(UnitConversionModels.get(uc) || TemperatureConversionModel)
+    setItemStatus(ResponseTypeEnum.NO_ANSWER)
   }
 
   const onComplete = (unitConversionItem: UnitConversionItemType) => {
@@ -31,9 +34,11 @@ function UnitConversionPage() {
 
     let unitConversionStatus
     try {
+      let studentResponseNum = Number.parseFloat(studentResponse)
+
       const correctAnswer = conversionFunc(inputValue, inputUnitOfMeasure, targetUnitOfMeasure, conversionModel)
       console.log(`correctAnswer ${JSON.stringify(correctAnswer)}`)
-      unitConversionStatus = `${correctAnswer}` === studentResponse ? ResponseTypeEnum.CORRECT : ResponseTypeEnum.INCORRECT
+      unitConversionStatus = round(correctAnswer) === round(studentResponseNum) ? ResponseTypeEnum.CORRECT : ResponseTypeEnum.INCORRECT
     } catch (e) {
       unitConversionStatus = ResponseTypeEnum.INVALID
     }
@@ -46,11 +51,11 @@ function UnitConversionPage() {
   }
 
   return (
-    <StyledAppContainer container spacing={1}>
+    <StyledAppContainer container spacing={1} sx={{ maxWidth: 600 }}>
       <StyledHeader item xs={12}></StyledHeader>
 
       <Grid item xs={12}>
-        <Box sx={{ minWidth: 60 }}>
+        <Box sx={{ minWidth: 60, maxWidth: 500 }}>
           <FormControl fullWidth>
             <InputLabel id='demo-simple-select-label'>Unit Conversion</InputLabel>
             <Select
@@ -79,16 +84,16 @@ function UnitConversionPage() {
 
       <Grid item xs={12}>
         {unitConversion && conversionModel && (
-          <UnitConversion unitConversionType={unitConversion} itemStatus={itemStatusFinal} onComplete={onComplete} />
+          <UnitConversion conversionModel={conversionModel} itemStatus={itemStatusFinal} onComplete={onComplete} />
         )}
       </Grid>
       {itemStatus !== ResponseTypeEnum.NO_ANSWER && (
-        <Grid item xs={12} md={6}>
-          <StyledResponse>Result: {itemStatus}</StyledResponse>
-        </Grid>
+        <StyledResponseContainer item xs={12} md={8}>
+          Response is: <StyledResponse status={itemStatus}>{itemStatus}</StyledResponse>
+        </StyledResponseContainer>
       )}
       {itemStatus !== ResponseTypeEnum.NO_ANSWER && (
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={3}>
           <StyledButton variant='outlined' onClick={onDoneClickHandler}>
             Done
           </StyledButton>

@@ -1,70 +1,99 @@
-'use client'
 import { useEffect, useState } from 'react'
-import { Button, Grid, TextField } from '@mui/material'
+import {Button, Grid, TextField} from '@mui/material'
 
-import { ResponseTypeEnum, UnitConversionEnum, UnitConversionItemType } from '@/models/types'
-import { StyledContainer } from './UnitConversion.styled'
+import {ConversionModel, ResponseTypeEnum, UnitConversionItemType} from '@/models/types'
+import {StyledAutocomplete, StyledContainer} from './UnitConversion.styled'
 
 type UnitConversionProps = {
-  unitConversionType: UnitConversionEnum
+  conversionModel: ConversionModel<any>
   itemStatus: ResponseTypeEnum
   onComplete: (unitConversionItem: UnitConversionItemType) => void
 }
 
-export const UnitConversion = ({ unitConversionType, itemStatus, onComplete }: UnitConversionProps) => {
-  const [inputValue, setInputValue] = useState<number>()
+export const UnitConversion = ({ conversionModel, itemStatus, onComplete }: UnitConversionProps) => {
+  const [inputValue, setInputValue] = useState<string>('')
   const [inputUnitOfMeasure, setInputUnitOfMeasure] = useState<string>('')
   const [targetUnitOfMeasure, setTargetUnitOfMeasure] = useState<string>('')
   const [studentResponse, setStudentResponse] = useState<string>('')
+  const [validationDisabled, setValidationDisabled] = useState<boolean>(true)
+  const unitConversionType = conversionModel.type
+  const options = conversionModel.measures
+
   useEffect(() => {
-    setInputValue(0)
+    setInputValue('')
     setInputUnitOfMeasure('')
     setTargetUnitOfMeasure('')
     setStudentResponse('')
-  }, [itemStatus])
+  }, [itemStatus, conversionModel])
+
+  useEffect(() => {
+    if (!Number.isNaN(inputValue) && inputUnitOfMeasure && targetUnitOfMeasure && studentResponse) {
+      setValidationDisabled(false)
+    } else {
+      setValidationDisabled(true)
+    }
+  }, [inputValue, inputUnitOfMeasure, targetUnitOfMeasure, studentResponse])
 
   const validateOnClickHandler = () => {
-    if (!Number.isNaN(inputValue) && inputUnitOfMeasure && targetUnitOfMeasure && studentResponse) {
-      onComplete({
-        inputValue: Number.isNaN(inputValue) ? 0 : (inputValue as unknown as number),
-        inputUnitOfMeasure,
-        targetUnitOfMeasure,
-        studentResponse,
-      })
-    }
+    onComplete({
+      inputValue: Number.isNaN(inputValue) ? 0 : Number.parseFloat(inputValue),
+      inputUnitOfMeasure,
+      targetUnitOfMeasure,
+      studentResponse,
+    })
   }
 
   return (
     <StyledContainer container spacing={1}>
       <Grid item xs={12} md={6}>
+        <StyledAutocomplete
+          id="input-measure"
+          freeSolo
+          options={options.map((option) => option)}
+          value={inputUnitOfMeasure}
+          onChange={(_, newValue) => {
+            setInputUnitOfMeasure(newValue as string)
+          }}
+          renderInput={(params) =>
+              <TextField {...params}
+                         required
+                         label={`Input Unit of ${unitConversionType}`}
+                         InputLabelProps={{ shrink: true }}
+                         onChange={(e) => setInputUnitOfMeasure(e.target.value)}
+              />
+            }
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <StyledAutocomplete
+          id="target-measure"
+          freeSolo
+          options={options.map((option) => option)}
+          value={targetUnitOfMeasure}
+          onChange={(_, newValue) => {
+            setTargetUnitOfMeasure(newValue as string)
+          }}
+          renderInput={(params) =>
+            <TextField {...params}
+                       required
+                       label={`Target Unit of ${unitConversionType}`}
+                       InputLabelProps={{ shrink: true }}
+                       onChange={(e) => setTargetUnitOfMeasure(e.target.value)}
+            />
+          }
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
         <TextField
           required
-          type='number'
           label='Numeric Input'
           InputLabelProps={{ shrink: true }}
           value={inputValue}
-          // helperText="Type in numerical value"
-          onChange={(e) => setInputValue(parseFloat(e.target.value))}
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          label={`Input Unit of ${unitConversionType}`}
-          InputLabelProps={{ shrink: true }}
-          value={inputUnitOfMeasure}
-          // helperText="Type in Unit of Measure"
-          onChange={(e) => setInputUnitOfMeasure(e.target.value)}
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          required
-          label={`Target Unit of ${unitConversionType}`}
-          InputLabelProps={{ shrink: true }}
-          value={targetUnitOfMeasure}
-          // helperText="Type in Unit of Measure"
-          onChange={(e) => setTargetUnitOfMeasure(e.target.value)}
+          onChange={(e) => {
+            if(e.target.value.match(/^-?\d*\.?\d*$/)) {
+              setInputValue(e.target.value)
+            }
+          }}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -73,13 +102,15 @@ export const UnitConversion = ({ unitConversionType, itemStatus, onComplete }: U
           label='Student Response'
           InputLabelProps={{ shrink: true }}
           value={studentResponse}
-          defaultValue=''
-          // helperText="Type in Student Response"
           onChange={(e) => setStudentResponse(e.target.value)}
         />
       </Grid>
       <Grid item xs={12}>
-        <Button variant='outlined' onClick={validateOnClickHandler}>
+        <Button
+          variant='outlined'
+          disabled={validationDisabled}
+          onClick={validateOnClickHandler}
+        >
           Validate
         </Button>
       </Grid>
