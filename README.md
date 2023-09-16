@@ -1,45 +1,43 @@
-# Material UI - Next.js App Router example in TypeScript
+# Teacher Assistant Coding Challenge 
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped using [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with Material UI installed.
+# Overview
+**Teacher's Assistant** app helps teachers to grade students in 'Unit Conversion' science unit by validating students answer for Temperatures and Volumes conversions.   
+The app supports all screen sizes (responsive) and keyboard accessible.
+
+**Teacher's Assistant** is ready to use [here (https://teacher-assistant.vercel.app/)](https://teacher-assistant.vercel.app/).
+
+Technical stack: TypeScript, NextJS, React, Material UI. CI/CD is used to deploy main branch to Vercel's environment.
 
 ## How to use
 
-Download the example [or clone the repo](https://github.com/mui/material-ui):
-
-<!-- #default-branch-switch -->
+[Clone the repo](https://github.com/pavlikovskiy/teacher-assistant), install it and run:
 
 ```bash
-curl https://codeload.github.com/mui/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/material-ui-nextjs-ts
-cd material-ui-nextjs-ts
+cd teacher-assistant
+yarn
+yarn dev
 ```
 
-Install it and run:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the app.
 
+Run unit tests for core functionality
 ```bash
-npm install
-npm run dev
+yarn test
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-or:
-
-<!-- #default-branch-switch -->
-
-[![Edit on StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/mui/material-ui/tree/master/examples/material-ui-nextjs-ts)
-
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui/material-ui/tree/master/examples/material-ui-nextjs-ts)
-
-## Learn more
-
-To learn more about this example:
-
-- [Next.js documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Customizing Material UI](https://mui.com/material-ui/customization/how-to-customize/) - approaches to customizing Material UI.
+Run end-to-end tests to test whole app 
+```bash
+yarn e2e
+```
 
 ## What's next?
 
-<!-- #default-branch-switch -->
+###  short term
+ - fix technical debts (better test coverage)
+ - propose to add more options for conversion unit (e.g. length, mass, weight, energy, ...) 
+ - propose to add log of assignment validations
 
-You now have a working example project.
-You can head back to the documentation and continue by browsing the [templates](https://mui.com/material-ui/getting-started/templates/) section.
+###  mid term
+ - propose functionality for students pass assignment on-line (so, teachers don't need to enter result's manually from paper)
+
+###  long term
+ - propose implementation / automation for other science units  

@@ -21,7 +21,7 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry'
 
 export const metadata = {
-  title: 'Teacher Assistant',
+  title: 'Teacher\'s Assistant',
   description: 'Next.js App Router + Material UI v5',
 }
 
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Toolbar sx={{ backgroundColor: 'background.paper' }}>
               <DashboardIcon sx={{ color: '#444', mr: 2, transform: 'translateY(-2px)' }} />
               <Typography variant='h6' noWrap component='div' color='black'>
-                Teacher Assistant
+                Teacher's Assistant
               </Typography>
             </Toolbar>
           </AppBar>
