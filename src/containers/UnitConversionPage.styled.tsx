@@ -13,7 +13,6 @@ export const StyledHeader = styled(Grid)`
 `
 
 export const StyledButton = styled(Button)`
-  //padding-left: 15px;
 `
 export const StyledResponseContainer = styled(Grid)`
   margin: 20px 0 0 10px;
@@ -33,7 +32,6 @@ export const MeasureSection = styled(Grid)`
 `
 
 export const MeasureLabel = styled.span`
-  //padding: 10px 10px 10px 0;
   color: ${grey[700]};
 `
 export const StyledMeasure = styled.span`

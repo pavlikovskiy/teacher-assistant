@@ -1,10 +1,17 @@
 import { ConversionModel, FormulaType, TemperatureUnitEnum, UnitConversionEnum, VolumeUnitEnum } from '@/models/types'
 
-const isUnitValid = (unit: string, options: string[]): boolean => options.map((unitType) => unitType.toLowerCase()).includes(unit.toLowerCase())
+const isUnitValid = (unit: string, options: string[]): boolean =>
+  options.map((unitType) => unitType.toLowerCase()).includes(unit.toLowerCase())
 
-export const round = (num: number, dec: number) => Math.round((num + Number.EPSILON) * Math.pow(10, dec)) / Math.pow(10, dec)
+export const round = (num: number, dec: number) =>
+  Math.round((num + Number.EPSILON) * Math.pow(10, dec)) / Math.pow(10, dec)
 
-export const conversionFunc = (value: number, from: string, to: string, conversionModel: ConversionModel<any>): number => {
+export const conversionFunc = (
+  value: number,
+  from: string,
+  to: string,
+  conversionModel: ConversionModel<any>
+): number => {
   if (!isUnitValid(from, conversionModel.measures)) throw new Error('Invalid input unit of measure')
 
   if (!isUnitValid(to, conversionModel.measures)) throw new Error('Invalid target unit of measure')
@@ -17,27 +24,30 @@ export const conversionFunc = (value: number, from: string, to: string, conversi
   return round(formula(value), 2)
 }
 
+const { CELSIUS, KELVIN, FAHRENHEIT, RANKINE } = TemperatureUnitEnum
+const { LITER, GALLON, TABLESPOON, CUBIC_INCH, CUBIC_FOOT, CUP } = VolumeUnitEnum
+
 export const TemperatureConversionModel: ConversionModel<TemperatureUnitEnum> = {
   type: UnitConversionEnum.TEMPERATURE,
 
   measures: Object.values(TemperatureUnitEnum),
 
   formulas: new Map<string, FormulaType>([
-    [`${TemperatureUnitEnum.KELVIN}-from-${TemperatureUnitEnum.CELSIUS}`, (c: number): number => c + 273.15],
-    [`${TemperatureUnitEnum.RANKINE}-from-${TemperatureUnitEnum.CELSIUS}`, (c: number): number => ((273.15 + c) * 9) / 5],
-    [`${TemperatureUnitEnum.FAHRENHEIT}-from-${TemperatureUnitEnum.CELSIUS}`, (c: number): number => 1.8 * c + 32],
+    [`${KELVIN}-from-${CELSIUS}`, (c: number): number => c + 273.15],
+    [`${RANKINE}-from-${CELSIUS}`, (c: number): number => ((273.15 + c) * 9) / 5],
+    [`${FAHRENHEIT}-from-${CELSIUS}`, (c: number): number => 1.8 * c + 32],
 
-    [`${TemperatureUnitEnum.CELSIUS}-from-${TemperatureUnitEnum.FAHRENHEIT}`, (f: number): number => (f - 32) / 1.8],
-    [`${TemperatureUnitEnum.KELVIN}-from-${TemperatureUnitEnum.FAHRENHEIT}`, (f: number): number => ((f + 459.67) * 5) / 9],
-    [`${TemperatureUnitEnum.RANKINE}-from-${TemperatureUnitEnum.FAHRENHEIT}`, (f: number): number => f + 459.67],
+    [`${CELSIUS}-from-${FAHRENHEIT}`, (f: number): number => (f - 32) / 1.8],
+    [`${KELVIN}-from-${FAHRENHEIT}`, (f: number): number => ((f + 459.67) * 5) / 9],
+    [`${RANKINE}-from-${FAHRENHEIT}`, (f: number): number => f + 459.67],
 
-    [`${TemperatureUnitEnum.FAHRENHEIT}-from-${TemperatureUnitEnum.RANKINE}`, (r: number): number => r - 459.67],
-    [`${TemperatureUnitEnum.CELSIUS}-from-${TemperatureUnitEnum.RANKINE}`, (r: number): number => (r * 5) / 9 - 273.15],
-    [`${TemperatureUnitEnum.KELVIN}-from-${TemperatureUnitEnum.RANKINE}`, (r: number): number => (r * 5) / 9],
+    [`${FAHRENHEIT}-from-${RANKINE}`, (r: number): number => r - 459.67],
+    [`${CELSIUS}-from-${RANKINE}`, (r: number): number => (r * 5) / 9 - 273.15],
+    [`${KELVIN}-from-${RANKINE}`, (r: number): number => (r * 5) / 9],
 
-    [`${TemperatureUnitEnum.RANKINE}-from-${TemperatureUnitEnum.KELVIN}`, (k: number): number => (k * 9) / 5],
-    [`${TemperatureUnitEnum.FAHRENHEIT}-from-${TemperatureUnitEnum.KELVIN}`, (k: number): number => (k * 9) / 5 - 459.67],
-    [`${TemperatureUnitEnum.CELSIUS}-from-${TemperatureUnitEnum.KELVIN}`, (k: number): number => k - 273.15],
+    [`${RANKINE}-from-${KELVIN}`, (k: number): number => (k * 9) / 5],
+    [`${FAHRENHEIT}-from-${KELVIN}`, (k: number): number => (k * 9) / 5 - 459.67],
+    [`${CELSIUS}-from-${KELVIN}`, (k: number): number => k - 273.15],
   ]),
 }
 
@@ -49,11 +59,8 @@ const cbi2l = (cbi: number): number => cbi / 61.02
 const l2cbi = (l: number): number => 61.02 * l
 const l2cbf = (l: number): number => l / 28.3168
 const cbf2l = (cbf: number): number => 28.3168 * cbf
-
 const l2c = (l: number): number => 4.16667 * l
-
 const c2l = (c: number): number => c / 4.16667
-
 
 export const VolumeConversionModel: ConversionModel<VolumeUnitEnum> = {
   type: UnitConversionEnum.VOLUME,
@@ -61,43 +68,41 @@ export const VolumeConversionModel: ConversionModel<VolumeUnitEnum> = {
   measures: Object.values(VolumeUnitEnum),
 
   formulas: new Map<string, (n: number) => number>([
-    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.LITER}`, l2g],
-    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.LITER}`, l2tbs],
-    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.LITER}`, l2cbi],
-    [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.LITER}`, l2cbf],
-    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.LITER}`, l2c],
+    [`${GALLON}-from-${LITER}`, l2g],
+    [`${TABLESPOON}-from-${LITER}`, l2tbs],
+    [`${CUBIC_INCH}-from-${LITER}`, l2cbi],
+    [`${CUBIC_FOOT}-from-${LITER}`, l2cbf],
+    [`${CUP}-from-${LITER}`, l2c],
 
-    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.GALLON}`, g2l],
-    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2tbs(g2l(g))],
-    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2cbi(g2l(g))],
-    [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2cbf(g2l(g))],
-    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2c(g2l(g))],
+    [`${LITER}-from-${GALLON}`, g2l],
+    [`${TABLESPOON}-from-${GALLON}`, (g: number): number => l2tbs(g2l(g))],
+    [`${CUBIC_INCH}-from-${GALLON}`, (g: number): number => l2cbi(g2l(g))],
+    [`${CUBIC_FOOT}-from-${GALLON}`, (g: number): number => l2cbf(g2l(g))],
+    [`${CUP}-from-${GALLON}`, (g: number): number => l2c(g2l(g))],
 
-    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.TABLESPOON}`, tbs2l],
-    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2g(tbs2l(tbs))],
-    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2cbi(tbs2l(tbs))],
-    [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2cbf(tbs2l(tbs))],
-    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2c(tbs2l(tbs))],
+    [`${LITER}-from-${TABLESPOON}`, tbs2l],
+    [`${GALLON}-from-${TABLESPOON}`, (tbs: number): number => l2g(tbs2l(tbs))],
+    [`${CUBIC_INCH}-from-${TABLESPOON}`, (tbs: number): number => l2cbi(tbs2l(tbs))],
+    [`${CUBIC_FOOT}-from-${TABLESPOON}`, (tbs: number): number => l2cbf(tbs2l(tbs))],
+    [`${CUP}-from-${TABLESPOON}`, (tbs: number): number => l2c(tbs2l(tbs))],
 
-    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.CUBIC_INCH}`, cbi2l],
-    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2g(cbi2l(cbi))],
-    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2tbs(cbi2l(cbi))],
-    [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2cbf(cbi2l(cbi))],
-    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2c(cbi2l(cbi))],
+    [`${LITER}-from-${CUBIC_INCH}`, cbi2l],
+    [`${GALLON}-from-${CUBIC_INCH}`, (cbi: number): number => l2g(cbi2l(cbi))],
+    [`${TABLESPOON}-from-${CUBIC_INCH}`, (cbi: number): number => l2tbs(cbi2l(cbi))],
+    [`${CUBIC_FOOT}-from-${CUBIC_INCH}`, (cbi: number): number => l2cbf(cbi2l(cbi))],
+    [`${CUP}-from-${CUBIC_INCH}`, (cbi: number): number => l2c(cbi2l(cbi))],
 
-    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.CUBIC_FOOT}`, cbf2l],
-    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2g(cbf2l(cbf))],
-    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2tbs(cbf2l(cbf))],
-    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2cbi(cbf2l(cbf))],
-    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2c(cbf2l(cbf))],
+    [`${LITER}-from-${CUBIC_FOOT}`, cbf2l],
+    [`${GALLON}-from-${CUBIC_FOOT}`, (cbf: number): number => l2g(cbf2l(cbf))],
+    [`${TABLESPOON}-from-${CUBIC_FOOT}`, (cbf: number): number => l2tbs(cbf2l(cbf))],
+    [`${CUBIC_INCH}-from-${CUBIC_FOOT}`, (cbf: number): number => l2cbi(cbf2l(cbf))],
+    [`${CUP}-from-${CUBIC_FOOT}`, (cbf: number): number => l2c(cbf2l(cbf))],
 
-
-    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.CUP}`, c2l],
-    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2g(c2l(c))],
-    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2tbs(c2l(c))],
-    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2cbi(c2l(c))],
-    [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2cbf(c2l(c))],
-
+    [`${LITER}-from-${CUP}`, c2l],
+    [`${GALLON}-from-${CUP}`, (c: number): number => l2g(c2l(c))],
+    [`${TABLESPOON}-from-${CUP}`, (c: number): number => l2tbs(c2l(c))],
+    [`${CUBIC_INCH}-from-${CUP}`, (c: number): number => l2cbi(c2l(c))],
+    [`${CUBIC_FOOT}-from-${CUP}`, (c: number): number => l2cbf(c2l(c))],
   ]),
 }
 

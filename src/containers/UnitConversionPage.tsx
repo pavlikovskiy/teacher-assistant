@@ -16,18 +16,18 @@ import {
 } from '@/containers/UnitConversionPage.styled'
 
 const unitOpts = [UnitConversionEnum.VOLUME, UnitConversionEnum.TEMPERATURE]
-
+const { NO_ANSWER, INVALID, CORRECT, INCORRECT } = ResponseTypeEnum
 const UnitConversionPage = () => {
   const [unitConversion, setUnitConversion] = useState<UnitConversionEnum>(UnitConversionEnum.TEMPERATURE)
   const [conversionModel, setConversionModel] = useState<ConversionModel<any>>(TemperatureConversionModel)
-  const [itemStatus, setItemStatus] = useState<ResponseTypeEnum>(ResponseTypeEnum.NO_ANSWER)
-  const [itemStatusFinal, setItemStatusFinal] = useState<ResponseTypeEnum>(ResponseTypeEnum.NO_ANSWER)
+  const [itemStatus, setItemStatus] = useState<ResponseTypeEnum>(NO_ANSWER)
+  const [itemStatusFinal, setItemStatusFinal] = useState<ResponseTypeEnum>(NO_ANSWER)
 
   const handleUnitConversionChange = (event: SelectChangeEvent) => {
     setUnitConversion(event.target.value as UnitConversionEnum)
     const uc: UnitConversionEnum = event.target.value as UnitConversionEnum
     setConversionModel(UnitConversionModels.get(uc) || TemperatureConversionModel)
-    setItemStatus(ResponseTypeEnum.NO_ANSWER)
+    setItemStatus(NO_ANSWER)
   }
 
   const onComplete = (unitConversionItem: UnitConversionItemType) => {
@@ -37,16 +37,16 @@ const UnitConversionPage = () => {
     try {
       const studentResponseNum = Number.parseFloat(studentResponse)
       const correctAnswer = conversionFunc(inputValue, inputUnitOfMeasure, targetUnitOfMeasure, conversionModel)
-      unitConversionStatus = round(correctAnswer, 1) === round(studentResponseNum, 1) ? ResponseTypeEnum.CORRECT : ResponseTypeEnum.INCORRECT
+      unitConversionStatus = round(correctAnswer, 1) === round(studentResponseNum, 1) ? CORRECT : INCORRECT
     } catch (e) {
-      unitConversionStatus = ResponseTypeEnum.INVALID
+      unitConversionStatus = INVALID
     }
     setItemStatus(unitConversionStatus)
   }
 
   const onDoneClickHandler = () => {
     setItemStatusFinal(itemStatus)
-    setItemStatus(ResponseTypeEnum.NO_ANSWER)
+    setItemStatus(NO_ANSWER)
   }
 
   return (
@@ -86,12 +86,15 @@ const UnitConversionPage = () => {
           <UnitConversion conversionModel={conversionModel} itemStatus={itemStatusFinal} onComplete={onComplete} />
         )}
       </Grid>
-      {itemStatus !== ResponseTypeEnum.NO_ANSWER && (
+      {itemStatus !== NO_ANSWER && (
         <StyledResponseContainer item xs={12} md={8}>
-          Response is: <StyledResponse id='status' status={itemStatus}>{itemStatus}</StyledResponse>
+          Response is:{' '}
+          <StyledResponse id='status' status={itemStatus}>
+            {itemStatus}
+          </StyledResponse>
         </StyledResponseContainer>
       )}
-      {itemStatus !== ResponseTypeEnum.NO_ANSWER && (
+      {itemStatus !== NO_ANSWER && (
         <Grid item xs={12} md={3}>
           <StyledButton id='done-btn' variant='outlined' onClick={onDoneClickHandler}>
             Done
