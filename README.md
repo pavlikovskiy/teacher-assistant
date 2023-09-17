@@ -8,6 +8,8 @@ The app supports all screen sizes (responsive) and keyboard accessible.
 
 Technical stack: TypeScript, Next.js, React, Material UI. CI/CD is used to deploy main branch to Vercel's cloud.
 
+Video demo / intro and tech walk through (3 mins) is [here](https://photos.google.com/photo/AF1QipPiuaMntJn_A-J8MrpLFaiqZPon4NKjfrqhQnwv)
+
 ## How to use
 
 [Clone the repo](https://github.com/pavlikovskiy/teacher-assistant), install it and run:
@@ -26,7 +28,7 @@ yarn test
 ```
 Run end-to-end tests to test whole app 
 ```bash
-yarn e2e
+yarn e2e:headless
 ```
 
 ## What's next?
@@ -40,4 +42,4 @@ yarn e2e
  - propose functionality for students pass assignment on-line (so, teachers don't need to enter result's manually from paper)
 
 ###  long term
- - propose implementation / automation for other science units  
+ - propose other science units automation / implementation (e.g. evolve to e-learning system)  
