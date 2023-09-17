@@ -8,7 +8,7 @@ The app supports all screen sizes (responsive) and keyboard accessible.
 
 Technical stack: TypeScript, Next.js, React, Material UI. CI/CD is used to deploy main branch to Vercel's cloud.
 
-Video demo / intro and tech walk through (3 mins) is [here](https://photos.google.com/photo/AF1QipPiuaMntJn_A-J8MrpLFaiqZPon4NKjfrqhQnwv)
+Video demo / intro and tech walk through (3 mins) is [here](https://photos.app.goo.gl/fMbEm2hMa8m12W9r5)
 
 ## How to use
 
