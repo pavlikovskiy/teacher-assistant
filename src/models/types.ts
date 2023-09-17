@@ -15,6 +15,8 @@ export enum VolumeUnitEnum {
   GALLON = 'Gallon',
   TABLESPOON = "Table Spoon",
   CUBIC_INCH = "Cubic Inch",
+  CUBIC_FOOT = "Cubic Foot",
+  CUP = "Cup",
 }
 
 export type FormulaType = (n: number) => number
@@ -33,7 +35,6 @@ export enum ResponseTypeEnum {
 }
 
 export interface UnitConversionItemType {
-  // type: UnitConversionEnum;
   inputValue: number
   inputUnitOfMeasure: string
   targetUnitOfMeasure: string
