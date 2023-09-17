@@ -48,7 +48,12 @@ const tbs2l = (tbs: number): number => tbs / 67.628
 const cbi2l = (cbi: number): number => cbi / 61.02
 const l2cbi = (l: number): number => 61.02 * l
 const l2cbf = (l: number): number => l / 28.3168
-const cbf2l = (l: number): number => 28.3168 * l
+const cbf2l = (cbf: number): number => 28.3168 * cbf
+
+const l2c = (l: number): number => 4.16667 * l
+
+const c2l = (c: number): number => c / 4.16667
+
 
 export const VolumeConversionModel: ConversionModel<VolumeUnitEnum> = {
   type: UnitConversionEnum.VOLUME,
@@ -60,26 +65,39 @@ export const VolumeConversionModel: ConversionModel<VolumeUnitEnum> = {
     [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.LITER}`, l2tbs],
     [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.LITER}`, l2cbi],
     [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.LITER}`, l2cbf],
+    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.LITER}`, l2c],
 
     [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.GALLON}`, g2l],
     [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2tbs(g2l(g))],
     [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2cbi(g2l(g))],
     [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2cbf(g2l(g))],
+    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2c(g2l(g))],
 
     [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.TABLESPOON}`, tbs2l],
     [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2g(tbs2l(tbs))],
     [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2cbi(tbs2l(tbs))],
     [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2cbf(tbs2l(tbs))],
+    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2c(tbs2l(tbs))],
 
     [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.CUBIC_INCH}`, cbi2l],
     [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2g(cbi2l(cbi))],
     [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2tbs(cbi2l(cbi))],
     [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2cbf(cbi2l(cbi))],
+    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2c(cbi2l(cbi))],
 
     [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.CUBIC_FOOT}`, cbf2l],
     [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2g(cbf2l(cbf))],
     [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2tbs(cbf2l(cbf))],
     [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2cbi(cbf2l(cbf))],
+    [`${VolumeUnitEnum.CUP}-from-${VolumeUnitEnum.CUBIC_FOOT}`, (cbf:number): number => l2c(cbf2l(cbf))],
+
+
+    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.CUP}`, c2l],
+    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2g(c2l(c))],
+    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2tbs(c2l(c))],
+    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2cbi(c2l(c))],
+    [`${VolumeUnitEnum.CUBIC_FOOT}-from-${VolumeUnitEnum.CUP}`, (c:number): number => l2cbf(c2l(c))],
+
   ]),
 }
 

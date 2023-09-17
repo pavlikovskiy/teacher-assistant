@@ -72,6 +72,9 @@ describe('volume model test', () => {
   test('Liter to Cubic Foot', () => {
     expect(conversionFunc(1, LITER, CUBIC_FOOT, volumeModel)).toBe(0.04)
   })
+  test('Liter to Cup', () => {
+    expect(conversionFunc(1, LITER, CUP, volumeModel)).toBe(4.17)
+  })
 
 
   test('Gallon to Liter', () => {
@@ -86,6 +89,9 @@ describe('volume model test', () => {
   test('Gallon to Cubic Foot', () => {
     expect(conversionFunc(1, GALLON, CUBIC_FOOT, volumeModel)).toBe(0.13)
   })
+  test('Gallon to Cup', () => {
+    expect(conversionFunc(1, GALLON, CUP, volumeModel)).toBe(15.77)
+  })
 
 
   test('Table Spoon to Liter', () => {
@@ -99,6 +105,9 @@ describe('volume model test', () => {
   })
   test('Table Spoon to Cubic Foot', () => {
     expect(conversionFunc(1, TABLESPOON, CUBIC_FOOT, volumeModel)).toBe(0.00)
+  })
+  test('Table Spoon to Cup', () => {
+    expect(conversionFunc(1, TABLESPOON, CUP, volumeModel)).toBe(0.06)
   })
 
 
@@ -115,6 +124,9 @@ describe('volume model test', () => {
   test('Cubic Inch 2 Cubic Foot', () => {
     expect(conversionFunc(1, CUBIC_INCH, CUBIC_FOOT, volumeModel)).toBe(0.00)
   })
+  test('Cubic Inch 2 Cup', () => {
+    expect(conversionFunc(1, CUBIC_INCH, CUP, volumeModel)).toBe(0.07)
+  })
 
 
   test('Cubic Foot to Liter', () => {
@@ -128,6 +140,27 @@ describe('volume model test', () => {
   })
   test('Cubic Foot 2 Gallon', () => {
     expect(conversionFunc(1, CUBIC_FOOT, GALLON, volumeModel)).toBe(7.48)
+  })
+  test('Cubic Foot 2 Cup', () => {
+    expect(conversionFunc(1, CUBIC_FOOT, CUP, volumeModel)).toBe(117.99)
+  })
+
+
+
+  test('Cup to Liter', () => {
+    expect(conversionFunc(1, CUP, LITER, volumeModel)).toBe(0.24)
+  })
+  test('Cup to Cubic Inch', () => {
+    expect(conversionFunc(1, CUP, CUBIC_INCH, volumeModel)).toBe(14.64)
+  })
+  test('Cup 2 Table Spoon', () => {
+    expect(conversionFunc(1, CUP, TABLESPOON, volumeModel)).toBe(16.23)
+  })
+  test('Cup 2 Gallon', () => {
+    expect(conversionFunc(1, CUP, GALLON, volumeModel)).toBe(0.06)
+  })
+  test('Cup 2 Cubic Foot', () => {
+    expect(conversionFunc(1, CUP, CUBIC_FOOT, volumeModel)).toBe(0.01)
   })
 
 })
