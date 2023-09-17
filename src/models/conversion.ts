@@ -41,14 +41,35 @@ export const TemperatureConversionModel: ConversionModel<TemperatureUnitEnum> = 
   ]),
 }
 
+const g2l = (g: number): number => 3.78541 * g
+const l2g = (l: number): number => l / 3.78541
+const l2tbs = (l: number): number => 67.628 * l
+const tbs2l = (tbs: number): number => tbs / 67.628
+const cbi2l = (cbi: number): number => cbi / 61.02
+const l2cbi = (l: number): number => 61.02 * l
+
 export const VolumeConversionModel: ConversionModel<VolumeUnitEnum> = {
   type: UnitConversionEnum.VOLUME,
 
   measures: Object.values(VolumeUnitEnum),
 
   formulas: new Map<string, (n: number) => number>([
-    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => 3.78541 * g],
-    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.LITER}`, (l: number): number => 0.264172 * l],
+    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.LITER}`, l2g],
+    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.LITER}`, l2tbs],
+    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.LITER}`, l2cbi],
+
+    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.GALLON}`, g2l],
+    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2tbs(g2l(g))],
+    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.GALLON}`, (g: number): number => l2cbi(g2l(g))],
+
+    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.TABLESPOON}`, tbs2l],
+    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.TABLESPOON}`, (tbs: number): number => l2g(tbs2l(tbs))],
+    [`${VolumeUnitEnum.CUBIC_INCH}-from-${VolumeUnitEnum.TABLESPOON}`, (g: number): number => l2cbi(tbs2l(g))],
+
+    [`${VolumeUnitEnum.LITER}-from-${VolumeUnitEnum.CUBIC_INCH}`, cbi2l],
+    [`${VolumeUnitEnum.GALLON}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2g(cbi2l(cbi))],
+    [`${VolumeUnitEnum.TABLESPOON}-from-${VolumeUnitEnum.CUBIC_INCH}`, (cbi:number): number => l2tbs(cbi2l(cbi))],
+
   ]),
 }
 

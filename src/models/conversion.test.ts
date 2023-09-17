@@ -58,13 +58,50 @@ describe('temperature model test', () => {
 
 describe('volume model test', () => {
   const volumeModel = VolumeConversionModel
-  const { LITER, GALLON } = VolumeUnitEnum
+  const { LITER, GALLON, TABLESPOON, CUBIC_INCH } = VolumeUnitEnum
 
   test('Liter to Gallon', () => {
     expect(conversionFunc(1, LITER, GALLON, volumeModel)).toBe(0.26)
   })
+  test('Liter to Table Spoon', () => {
+    expect(conversionFunc(1, LITER, TABLESPOON, volumeModel)).toBe(67.63)
+  })
+  test('Liter to Cubic Inch', () => {
+    expect(conversionFunc(1, LITER, CUBIC_INCH, volumeModel)).toBe(61.02)
+  })
+
 
   test('Gallon to Liter', () => {
     expect(conversionFunc(1, GALLON, LITER, volumeModel)).toBe(3.79)
   })
+  test('Gallon to Table Spoon', () => {
+    expect(conversionFunc(1, GALLON, TABLESPOON, volumeModel)).toBe(256)
+  })
+  test('Gallon to Cubic Inch', () => {
+    expect(conversionFunc(1, GALLON, CUBIC_INCH, volumeModel)).toBe(230.99)
+  })
+
+
+  test('Table Spoon to Liter', () => {
+    expect(conversionFunc(1, TABLESPOON, LITER, volumeModel)).toBe(0.01)
+  })
+  test('Table Spoon to Gallon', () => {
+    expect(conversionFunc(1, TABLESPOON, GALLON, volumeModel)).toBe(0.00)
+  })
+  test('Table Spoon to Cubic Inch', () => {
+    expect(conversionFunc(1, TABLESPOON, CUBIC_INCH, volumeModel)).toBe(0.90)
+  })
+
+
+
+  test('Cubic Inch 2 Liter', () => {
+    expect(conversionFunc(1, CUBIC_INCH, LITER, volumeModel)).toBe(0.02)
+  })
+  test('Cubic Inch 2 Table Spoon', () => {
+    expect(conversionFunc(1, CUBIC_INCH, TABLESPOON, volumeModel)).toBe(1.11)
+  })
+  test('Cubic Inch 2 Gallon', () => {
+    expect(conversionFunc(1, CUBIC_INCH, GALLON, volumeModel)).toBe(0.00)
+  })
+
 })

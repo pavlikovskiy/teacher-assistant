@@ -13,8 +13,8 @@ export enum TemperatureUnitEnum {
 export enum VolumeUnitEnum {
   LITER = 'Liter',
   GALLON = 'Gallon',
-  // TABLESPOON = "Table Spoon",
-  // CUBIC_INCH = "Cubic Inch",
+  TABLESPOON = "Table Spoon",
+  CUBIC_INCH = "Cubic Inch",
 }
 
 export type FormulaType = (n: number) => number
