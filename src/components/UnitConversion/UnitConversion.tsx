@@ -87,6 +87,7 @@ export const UnitConversion = ({ conversionModel, itemStatus, onComplete }: Unit
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
+          id='unit-input'
           required
           label='Numeric Input'
           InputLabelProps={{ shrink: true }}
@@ -100,6 +101,7 @@ export const UnitConversion = ({ conversionModel, itemStatus, onComplete }: Unit
       </Grid>
       <Grid item xs={12} md={6}>
         <TextField
+          id='student-response'
           required
           label='Student Response'
           InputLabelProps={{ shrink: true }}
@@ -108,7 +110,7 @@ export const UnitConversion = ({ conversionModel, itemStatus, onComplete }: Unit
         />
       </Grid>
       <Grid item xs={12}>
-        <Button variant='outlined' disabled={validationDisabled} onClick={validateOnClickHandler}>
+        <Button id='validate-btn' variant='outlined' disabled={validationDisabled} onClick={validateOnClickHandler}>
           Validate
         </Button>
       </Grid>

@@ -88,12 +88,12 @@ const UnitConversionPage = () => {
       </Grid>
       {itemStatus !== ResponseTypeEnum.NO_ANSWER && (
         <StyledResponseContainer item xs={12} md={8}>
-          Response is: <StyledResponse status={itemStatus}>{itemStatus}</StyledResponse>
+          Response is: <StyledResponse id='status' status={itemStatus}>{itemStatus}</StyledResponse>
         </StyledResponseContainer>
       )}
       {itemStatus !== ResponseTypeEnum.NO_ANSWER && (
         <Grid item xs={12} md={3}>
-          <StyledButton variant='outlined' onClick={onDoneClickHandler}>
+          <StyledButton id='done-btn' variant='outlined' onClick={onDoneClickHandler}>
             Done
           </StyledButton>
         </Grid>
